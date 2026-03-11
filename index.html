@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chemistry Master Notes – JAMB 300+</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00c853;
+    --dark: #0a0f0d;
+    --card: #111a14;
+    --border: #1e3028;
+    --gold: #ffd600;
+    --acid: #e53935;
+    --base: #1e88e5;
+    --salt: #8e24aa;
+    --soluble: #00897b;
+    --solvent: #f4511e;
+    --alkane: #43a047;
+    --alkene: #fb8c00;
+    --alkyne: #e91e63;
+    --text: #e8f5e9;
+    --muted: #7cb87f;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #002010 0%, #001a0a 60%, #0d3322 100%);
+    border-bottom: 3px solid var(--green);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(0,200,83,0.13) 0%, transparent 70%);
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 3.2rem);
+    font-weight: 900;
+    color: var(--green);
+    letter-spacing: -1px;
+    position: relative;
+  }
+  header p {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--gold);
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    position: relative;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--gold);
+    color: #000;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    margin-top: 0.6rem;
+    letter-spacing: 1px;
+  }
+
+  /* NAV TABS */
+  nav {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    border-bottom: 2px solid var(--border);
+    background: #080d09;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav button {
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 1rem 1.4rem;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  nav button:hover { color: var(--text); }
+  nav button.active {
+    color: var(--green);
+    border-bottom-color: var(--green);
+    background: rgba(0,200,83,0.06);
+  }
+
+  /* SECTIONS */
+  main { padding: 2rem 1.5rem; max-width: 1300px; margin: 0 auto; }
+  section { display: none; }
+  section.active { display: block; animation: fadeUp 0.4s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--green);
+    border-left: 5px solid var(--gold);
+    padding-left: 1rem;
+  }
+  h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin: 1.5rem 0 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  /* PERIODIC TABLE */
+  .pt-search {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .pt-search input {
+    flex: 1;
+    min-width: 200px;
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .pt-search input:focus { border-color: var(--green); }
+  .pt-search select {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    padding: 0.6rem 0.8rem;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 0.4rem;
+    font-size: 0.78rem; font-weight: 600; color: var(--muted);
+  }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+  .pt-table-wrap { overflow-x: auto; }
+  table.pt {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    min-width: 700px;
+  }
+  table.pt thead th {
+    background: #0d1f13;
+    color: var(--gold);
+    padding: 0.55rem 0.5rem;
+    text-align: left;
+    border-bottom: 2px solid var(--border);
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+  }
+  table.pt tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  table.pt tbody tr:hover { background: rgba(0,200,83,0.06); }
+  table.pt tbody td {
+    padding: 0.45rem 0.5rem;
+    vertical-align: middle;
+  }
+  table.pt tbody tr.hidden { display: none; }
+
+  .num { color: var(--muted); text-align: center; }
+  .sym {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #fff;
+  }
+  .class-pill {
+    display: inline-block;
+    padding: 0.18rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .Alkali\ Metal { background: rgba(229,57,53,0.18); color: #ef9a9a; }
+  .Alkaline\ Earth\ Metal { background: rgba(251,140,0,0.18); color: #ffcc80; }
+  .Transition\ Metal { background: rgba(30,136,229,0.18); color: #90caf9; }
+  .Post-transition\ Metal { background: rgba(142,36,170,0.18); color: #ce93d8; }
+  .Metalloid { background: rgba(0,150,136,0.18); color: #80cbc4; }
+  .Nonmetal { background: rgba(67,160,71,0.18); color: #a5d6a7; }
+  .Halogen { background: rgba(255,214,0,0.18); color: #fff176; }
+  .Noble\ Gas { background: rgba(236,64,122,0.18); color: #f48fb1; }
+  .Lanthanide { background: rgba(79,195,247,0.18); color: #b3e5fc; }
+  .Actinide { background: rgba(255,112,67,0.18); color: #ffccbc; }
+
+  /* CARDS */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.2rem;
+    margin-top: 0.5rem;
+  }
+  .card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 1.3rem 1.4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .card.acid::before { background: var(--acid); }
+  .card.base::before { background: var(--base); }
+  .card.salt::before { background: var(--salt); }
+  .card.soluble::before { background: var(--soluble); }
+  .card.solvent::before { background: var(--solvent); }
+  .card.alkane::before { background: var(--alkane); }
+  .card.alkene::before { background: var(--alkene); }
+  .card.alkyne::before { background: var(--alkyne); }
+
+  .card h4 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 1rem;
+    padding-top: 0.2rem;
+  }
+  .card.acid h4 { color: #ef9a9a; }
+  .card.base h4 { color: #90caf9; }
+  .card.salt h4 { color: #ce93d8; }
+  .card.soluble h4 { color: #80cbc4; }
+  .card.solvent h4 { color: #ffccbc; }
+  .card.alkane h4 { color: #a5d6a7; }
+  .card.alkene h4 { color: #ffcc80; }
+  .card.alkyne h4 { color: #f48fb1; }
+
+  .item-list { list-style: none; }
+  .item-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.42rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+    line-height: 1.4;
+  }
+  .item-list li:last-child { border: none; }
+  .item-list li .n {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    padding-top: 2px;
+    min-width: 18px;
+  }
+  .item-list li strong { color: #fff; }
+  .item-list li span { color: var(--muted); font-size: 0.82rem; }
+
+  /* ORGANIC */
+  .org-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.4rem;
+    margin-top: 0.5rem;
+  }
+  .org-card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 1.4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .org-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .org-card.alkane::before { background: var(--alkane); }
+  .org-card.alkene::before { background: var(--alkene); }
+  .org-card.alkyne::before { background: var(--alkyne); }
+
+  .org-card h4 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.4rem;
+    padding-top: 0.2rem;
+  }
+  .org-card.alkane h4 { color: var(--alkane); }
+  .org-card.alkene h4 { color: var(--alkene); }
+  .org-card.alkyne h4 { color: var(--alkyne); }
+
+  .org-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  .org-item {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    gap: 0.4rem 0.8rem;
+    align-items: center;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.84rem;
+  }
+  .org-item:last-child { border: none; }
+  .org-item .n2 {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--muted);
+    font-size: 0.72rem;
+  }
+  .org-item .name { font-weight: 700; color: #fff; }
+  .org-item .formula {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--gold);
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  @media (max-width: 600px) {
+    main { padding: 1.2rem 0.8rem; }
+    h2 { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚗️ Chemistry Master Notes</h1>
+  <p>WAEC · JAMB · NECO Ready Reference</p>
+  <span class="badge">JAMB SCORE: 300+ 🇳🇬</span>
+</header>
+
+<nav id="nav">
+  <button class="active" onclick="showTab('periodic')">📋 Periodic Table</button>
+  <button onclick="showTab('acids')">🔴 Acids</button>
+  <button onclick="showTab('bases')">🔵 Bases</button>
+  <button onclick="showTab('salts')">🟣 Salts</button>
+  <button onclick="showTab('solub')">🟢 Solubles</button>
+  <button onclick="showTab('solvents')">🟠 Solvents</button>
+  <button onclick="showTab('organic')">🧬 Organic</button>
+</nav>
+
+<main>
+
+<!-- ═══════════════════ PERIODIC TABLE ═══════════════════ -->
+<section id="periodic" class="active">
+  <h2>First 100 Elements — Periodic Table</h2>
+  <div class="pt-search">
+    <input type="text" id="ptSearch" placeholder="🔍  Search element name, symbol, or class..." oninput="filterTable()">
+    <select onchange="filterByClass(this.value)">
+      <option value="">All Classes</option>
+      <option>Alkali Metal</option>
+      <option>Alkaline Earth Metal</option>
+      <option>Transition Metal</option>
+      <option>Post-transition Metal</option>
+      <option>Metalloid</option>
+      <option>Nonmetal</option>
+      <option>Halogen</option>
+      <option>Noble Gas</option>
+      <option>Lanthanide</option>
+      <option>Actinide</option>
+    </select>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#ef9a9a"></div>Alkali Metal</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ffcc80"></div>Alkaline Earth</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#90caf9"></div>Transition Metal</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ce93d8"></div>Post-transition</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#80cbc4"></div>Metalloid</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#a5d6a7"></div>Nonmetal</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#fff176"></div>Halogen</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f48fb1"></div>Noble Gas</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#b3e5fc"></div>Lanthanide</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ffccbc"></div>Actinide</div>
+  </div>
+  <div class="pt-table-wrap">
+  <table class="pt" id="ptTable">
+    <thead>
+      <tr>
+        <th style="width:40px">No.</th>
+        <th style="width:55px">Symbol</th>
+        <th>Name</th>
+        <th>Group</th>
+        <th>Period</th>
+        <th>Class</th>
+      </tr>
+    </thead>
+    <tbody id="ptBody"></tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ═══════════════════ ACIDS ═══════════════════ -->
+<section id="acids">
+  <h2>Acids — 10 Examples</h2>
+  <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;line-height:1.6">An <strong style="color:#ef9a9a">acid</strong> is a substance that donates H⁺ ions (protons) in solution, has a pH &lt; 7, turns blue litmus red, and reacts with metals to produce hydrogen gas.</p>
+  <div class="card-grid">
+    <div class="card acid">
+      <h4>⚡ Strong Acids</h4>
+      <ul class="item-list">
+        <li><span class="n">1.</span><div><strong>Hydrochloric Acid</strong> — HCl<br><span>Found in stomach; very corrosive</span></div></li>
+        <li><span class="n">2.</span><div><strong>Sulphuric Acid</strong> — H₂SO₄<br><span>Used in car batteries; industrial chemical</span></div></li>
+        <li><span class="n">3.</span><div><strong>Nitric Acid</strong> — HNO₃<br><span>Used in making fertilizers & explosives</span></div></li>
+        <li><span class="n">4.</span><div><strong>Hydrobromic Acid</strong> — HBr<br><span>Strong acid, highly corrosive</span></div></li>
+        <li><span class="n">5.</span><div><strong>Perchloric Acid</strong> — HClO₄<br><span>Strongest common acid</span></div></li>
+      </ul>
+    </div>
+    <div class="card acid">
+      <h4>🌿 Weak / Organic Acids</h4>
+      <ul class="item-list">
+        <li><span class="n">6.</span><div><strong>Ethanoic Acid</strong> — CH₃COOH<br><span>Acetic acid; found in vinegar</span></div></li>
+        <li><span class="n">7.</span><div><strong>Citric Acid</strong> — C₆H₈O₇<br><span>Found in citrus fruits like orange & lemon</span></div></li>
+        <li><span class="n">8.</span><div><strong>Carbonic Acid</strong> — H₂CO₃<br><span>In fizzy drinks (CO₂ + H₂O)</span></div></li>
+        <li><span class="n">9.</span><div><strong>Methanoic Acid</strong> — HCOOH<br><span>Formic acid; found in ant stings</span></div></li>
+        <li><span class="n">10.</span><div><strong>Lactic Acid</strong> — C₃H₆O₃<br><span>Produced in muscles during exercise</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ BASES ═══════════════════ -->
+<section id="bases">
+  <h2>Bases — 10 Examples</h2>
+  <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;line-height:1.6">A <strong style="color:#90caf9">base</strong> is a substance that accepts H⁺ ions or donates OH⁻ ions. Soluble bases are called <em>alkalis</em>. pH &gt; 7, turns red litmus blue, feels soapy.</p>
+  <div class="card-grid">
+    <div class="card base">
+      <h4>💧 Alkalis (Soluble Bases)</h4>
+      <ul class="item-list">
+        <li><span class="n">1.</span><div><strong>Sodium Hydroxide</strong> — NaOH<br><span>Caustic soda; used in soap making</span></div></li>
+        <li><span class="n">2.</span><div><strong>Potassium Hydroxide</strong> — KOH<br><span>Caustic potash; used in batteries</span></div></li>
+        <li><span class="n">3.</span><div><strong>Calcium Hydroxide</strong> — Ca(OH)₂<br><span>Slaked lime; used in whitewashing walls</span></div></li>
+        <li><span class="n">4.</span><div><strong>Ammonium Hydroxide</strong> — NH₄OH<br><span>Ammonia solution; used in cleaning</span></div></li>
+        <li><span class="n">5.</span><div><strong>Barium Hydroxide</strong> — Ba(OH)₂<br><span>Strong base used in titrations</span></div></li>
+      </ul>
+    </div>
+    <div class="card base">
+      <h4>🪨 Insoluble Bases</h4>
+      <ul class="item-list">
+        <li><span class="n">6.</span><div><strong>Copper(II) Hydroxide</strong> — Cu(OH)₂<br><span>Blue precipitate; insoluble base</span></div></li>
+        <li><span class="n">7.</span><div><strong>Iron(III) Hydroxide</strong> — Fe(OH)₃<br><span>Reddish-brown precipitate</span></div></li>
+        <li><span class="n">8.</span><div><strong>Zinc Oxide</strong> — ZnO<br><span>Amphoteric base; used in calamine lotion</span></div></li>
+        <li><span class="n">9.</span><div><strong>Magnesium Hydroxide</strong> — Mg(OH)₂<br><span>Milk of magnesia; antacid medicine</span></div></li>
+        <li><span class="n">10.</span><div><strong>Aluminium Hydroxide</strong> — Al(OH)₃<br><span>Amphoteric; used in antacids</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SALTS ═══════════════════ -->
+<section id="salts">
+  <h2>Salts — 10 Examples</h2>
+  <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;line-height:1.6">A <strong style="color:#ce93d8">salt</strong> is formed when the H⁺ of an acid is replaced (fully or partially) by a metal ion or ammonium ion. Produced in neutralisation reactions (Acid + Base → Salt + Water).</p>
+  <div class="card-grid">
+    <div class="card salt">
+      <h4>🧂 Normal Salts</h4>
+      <ul class="item-list">
+        <li><span class="n">1.</span><div><strong>Sodium Chloride</strong> — NaCl<br><span>Common table salt; from HCl + NaOH</span></div></li>
+        <li><span class="n">2.</span><div><strong>Calcium Carbonate</strong> — CaCO₃<br><span>Limestone, chalk, marble</span></div></li>
+        <li><span class="n">3.</span><div><strong>Copper(II) Sulphate</strong> — CuSO₄<br><span>Blue vitriol; used in electroplating</span></div></li>
+        <li><span class="n">4.</span><div><strong>Ammonium Nitrate</strong> — NH₄NO₃<br><span>Fertilizer; from HNO₃ + NH₃</span></div></li>
+        <li><span class="n">5.</span><div><strong>Potassium Chloride</strong> — KCl<br><span>Sylvite; fertilizer & food additive</span></div></li>
+      </ul>
+    </div>
+    <div class="card salt">
+      <h4>✨ More Salts</h4>
+      <ul class="item-list">
+        <li><span class="n">6.</span><div><strong>Sodium Carbonate</strong> — Na₂CO₃<br><span>Washing soda; water softener</span></div></li>
+        <li><span class="n">7.</span><div><strong>Iron(II) Sulphate</strong> — FeSO₄<br><span>Green vitriol; used in ink making</span></div></li>
+        <li><span class="n">8.</span><div><strong>Zinc Sulphate</strong> — ZnSO₄<br><span>White vitriol; in fertilizers</span></div></li>
+        <li><span class="n">9.</span><div><strong>Silver Nitrate</strong> — AgNO₃<br><span>Used in photography & medicine</span></div></li>
+        <li><span class="n">10.</span><div><strong>Sodium Bicarbonate</strong> — NaHCO₃<br><span>Baking soda; acid salt from H₂CO₃</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SOLUBLES ═══════════════════ -->
+<section id="solub">
+  <h2>Soluble Substances — 10 Examples</h2>
+  <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;line-height:1.6">A <strong style="color:#80cbc4">soluble substance</strong> dissolves completely in a solvent (usually water) to form a homogeneous solution. Solubility depends on temperature, pressure, and the nature of solute/solvent ("like dissolves like").</p>
+  <div class="card-grid">
+     <div class="card soluble">
+      <h4>💧 Soluble in Water</h4>
+      <ul class="item-list">
+        <li><span class="n">1.</span><div><strong>Sodium Chloride</strong> — NaCl<br><span>Table salt; dissolves readily in water</span></div></li>
+        <li><span class="n">2.</span><div><strong>Sugar (Sucrose)</strong> — C₁₂H₂₂O₁₁<br><span>Highly soluble in hot or cold water</span></div></li>
+        <li><span class="n">3.</span><div><strong>Copper(II) Sulphate</strong> — CuSO₄<br><span>Forms deep blue solution</span></div></li>
+        <li><span class="n">4.</span><div><strong>Potassium Nitrate</strong> — KNO₃<br><span>Saltpetre; very soluble, increases with temp</span></div></li>
+        <li><span class="n">5.</span><div><strong>Ethanol</strong> — C₂H₅OH<br><span>Completely miscible with water</span></div></li>
+      </ul>
+    </div>
+    <div class="card soluble">
+      <h4>🌊 More Solubles</h4>
+      <ul class="item-list">
+        <li><span class="n">6.</span><div><strong>Ammonium Chloride</strong> — NH₄Cl<br><span>Sal ammoniac; dissolves endothermically</span></div></li>
+        <li><span class="n">7.</span><div><strong>Sodium Hydroxide</strong> — NaOH<br><span>Very soluble; dissolution is exothermic</span></div></li>
+        <li><span class="n">8.</span><div><strong>Urea</strong> — CO(NH₂)₂<br><span>Highly soluble; important in fertilizers</span></div></li>
+        <li><span class="n">9.</span><div><strong>Glucose</strong> — C₆H₁₂O₆<br><span>Dissolves in water; transported in blood</span></div></li>
+        <li><span class="n">10.</span><div><strong>Potassium Permanganate</strong> — KMnO₄<br><span>Dissolves to give purple solution</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SOLVENTS ═══════════════════ -->
+<section id="solvents">
+  <h2>Solvents — 10 Examples</h2>
+  <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;line-height:1.6">A <strong style="color:#ffccbc">solvent</strong> is the dissolving medium in a solution — the substance present in greater quantity. Water is the "universal solvent". Polar solvents dissolve ionic/polar solutes; non-polar solvents dissolve non-polar solutes.</p>
+  <div class="card-grid">
+    <div class="card solvent">
+      <h4>🌍 Polar Solvents</h4>
+      <ul class="item-list">
+        <li><span class="n">1.</span><div><strong>Water</strong> — H₂O<br><span>Universal solvent; dissolves ionic compounds</span></div></li>
+        <li><span class="n">2.</span><div><strong>Ethanol</strong> — C₂H₅OH<br><span>Dissolves both polar & some non-polar substances</span></div></li>
+        <li><span class="n">3.</span><div><strong>Methanol</strong> — CH₃OH<br><span>Wood alcohol; polar, miscible with water</span></div></li>
+        <li><span class="n">4.</span><div><strong>Acetone</strong> — (CH₃)₂CO<br><span>Nail polish remover; dissolves organic compounds</span></div></li>
+        <li><span class="n">5.</span><div><strong>Acetic Acid</strong> — CH₃COOH<br><span>Glacial acetic acid used as polar solvent</span></div></li>
+      </ul>
+    </div>
+    <div class="card solvent">
+      <h4>🛢️ Non-Polar Solvents</h4>
+      <ul class="item-list">
+        <li><span class="n">6.</span><div><strong>Benzene</strong> — C₆H₆<br><span>Dissolves fats, oils, rubber; carcinogenic</span></div></li>
+        <li><span class="n">7.</span><div><strong>Tetrachloromethane</strong> — CCl₄<br><span>Carbon tetrachloride; non-polar solvent</span></div></li>
+        <li><span class="n">8.</span><div><strong>Hexane</strong> — C₆H₁₄<br><span>Used to extract oils from seeds</span></div></li>
+        <li><span class="n">9.</span><div><strong>Diethyl Ether</strong> — C₄H₁₀O<br><span>Used in labs; historically as anaesthetic</span></div></li>
+        <li><span class="n">10.</span><div><strong>Kerosene</strong> — (Hydrocarbon mixture)<br><span>Dissolves grease, wax, and non-polar substances</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ ORGANIC ═══════════════════ -->
+<section id="organic">
+  <h2>Organic Chemistry — Homologous Series</h2>
+  <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;line-height:1.6">Hydrocarbons are organic compounds containing only Carbon and Hydrogen. The three main series below differ in their bond types and general formulas.</p>
+  <div class="org-grid">
+    <!-- ALKANES -->
+    <div class="org-card alkane">
+      <h4>🟢 Alkanes</h4>
+      <p class="org-desc">General Formula: <strong style="color:var(--gold)">CₙH₂ₙ₊₂</strong><br>Single C–C bonds only (saturated). Suffix: <em>-ane</em>. Used as fuels. Undergo substitution reactions.</p>
+      <div class="org-item"><span class="n2">1</span><span class="name">Methane</span><span class="formula">CH₄</span></div>
+      <div class="org-item"><span class="n2">2</span><span class="name">Ethane</span><span class="formula">C₂H₆</span></div>
+      <div class="org-item"><span class="n2">3</span><span class="name">Propane</span><span class="formula">C₃H₈</span></div>
+      <div class="org-item"><span class="n2">4</span><span class="name">Butane</span><span class="formula">C₄H₁₀</span></div>
+      <div class="org-item"><span class="n2">5</span><span class="name">Pentane</span><span class="formula">C₅H₁₂</span></div>
+    </div>
+    <!-- ALKENES -->
+    <div class="org-card alkene">
+      <h4>🟠 Alkenes</h4>
+      <p class="org-desc">General Formula: <strong style="color:var(--gold)">CₙH₂ₙ</strong><br>One C=C double bond (unsaturated). Suffix: <em>-ene</em>. Undergo addition reactions. Decolourise bromine water.</p>
+      <div class="org-item"><span class="n2">1</span><span class="name">Ethene</span><span class="formula">C₂H₄</span></div>
+      <div class="org-item"><span class="n2">2</span><span class="name">Propene</span><span class="formula">C₃H₆</span></div>
+      <div class="org-item"><span class="n2">3</span><span class="name">Butene</span><span class="formula">C₄H₈</span></div>
+      <div class="org-item"><span class="n2">4</span><span class="name">Pentene</span><span class="formula">C₅H₁₀</span></div>
+      <div class="org-item"><span class="n2">5</span><span class="name">Hexene</span><span class="formula">C₆H₁₂</span></div>
+    </div>
+    <!-- ALKYNES -->
+    <div class="org-card alkyne">
+      <h4>🔴 Alkynes</h4>
+      <p class="org-desc">General Formula: <strong style="color:var(--gold)">CₙH₂ₙ₋₂</strong><br>One C≡C triple bond (highly unsaturated). Suffix: <em>-yne</em>. Very reactive; also undergo addition reactions.</p>
+      <div class="org-item"><span class="n2">1</span><span class="name">Ethyne</span><span class="formula">C₂H₂</span></div>
+      <div class="org-item"><span class="n2">2</span><span class="name">Propyne</span><span class="formula">C₃H₄</span></div>
+      <div class="org-item"><span class="n2">3</span><span class="name">Butyne</span><span class="formula">C₄H₆</span></div>
+      <div class="org-item"><span class="n2">4</span><span class="name">Pentyne</span><span class="formula">C₅H₈</span></div>
+      <div class="org-item"><span class="n2">5</span><span class="name">Hexyne</span><span class="formula">C₆H₁₀</span></div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:2.5rem">📊 Quick Comparison Table</h3>
+  <div class="pt-table-wrap">
+  <table class="pt" style="min-width:500px">
+    <thead>
+      <tr>
+        <th>Series</th><th>Bond Type</th><th>General Formula</th><th>Saturation</th><th>Test</th><th>Reaction Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="class-pill" style="background:rgba(67,160,71,0.2);color:#a5d6a7">Alkane</span></td>
+        <td>C–C (single)</td>
+        <td style="color:var(--gold);font-family:'IBM Plex Mono',monospace">CₙH₂ₙ₊₂</td>
+        <td>Saturated</td>
+        <td>No reaction with Br₂ water</td>
+        <td>Substitution</td>
+      </tr>
+      <tr>
+        <td><span class="class-pill" style="background:rgba(251,140,0,0.2);color:#ffcc80">Alkene</span></td>
+        <td>C=C (double)</td>
+        <td style="color:var(--gold);font-family:'IBM Plex Mono',monospace">CₙH₂ₙ</td>
+        <td>Unsaturated</td>
+        <td>Decolourises Br₂ water</td>
+        <td>Addition</td>
+      </tr>
+      <tr>
+        <td><span class="class-pill" style="background:rgba(233,30,99,0.2);color:#f48fb1">Alkyne</span></td>
+        <td>C≡C (triple)</td>
+        <td style="color:var(--gold);font-family:'IBM Plex Mono',monospace">CₙH₂ₙ₋₂</td>
+        <td>Highly Unsaturated</td>
+        <td>Decolourises Br₂ water (fast)</td>
+        <td>Addition</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  ⚗️ Chemistry Master Notes &nbsp;·&nbsp; JAMB 300+ Reference &nbsp;·&nbsp; Nigeria 🇳🇬
+</footer>
+
+<script>
+// ══════════════════════════════════
+// ELEMENT DATA
+// ══════════════════════════════════
+const elements = [
+  [1,"H","Hydrogen",1,1,"Nonmetal"],
+  [2,"He","Helium",18,1,"Noble Gas"],
+  [3,"Li","Lithium",1,2,"Alkali Metal"],
+  [4,"Be","Beryllium",2,2,"Alkaline Earth Metal"],
+  [5,"B","Boron",13,2,"Metalloid"],
+  [6,"C","Carbon",14,2,"Nonmetal"],
+  [7,"N","Nitrogen",15,2,"Nonmetal"],
+  [8,"O","Oxygen",16,2,"Nonmetal"],
+  [9,"F","Fluorine",17,2,"Halogen"],
+  [10,"Ne","Neon",18,2,"Noble Gas"],
+  [11,"Na","Sodium",1,3,"Alkali Metal"],
+  [12,"Mg","Magnesium",2,3,"Alkaline Earth Metal"],
+  [13,"Al","Aluminium",13,3,"Post-transition Metal"],
+  [14,"Si","Silicon",14,3,"Metalloid"],
+  [15,"P","Phosphorus",15,3,"Nonmetal"],
+  [16,"S","Sulfur",16,3,"Nonmetal"],
+  [17,"Cl","Chlorine",17,3,"Halogen"],
+  [18,"Ar","Argon",18,3,"Noble Gas"],
+  [19,"K","Potassium",1,4,"Alkali Metal"],
+  [20,"Ca","Calcium",2,4,"Alkaline Earth Metal"],
+  [21,"Sc","Scandium",3,4,"Transition Metal"],
+  [22,"Ti","Titanium",4,4,"Transition Metal"],
+  [23,"V","Vanadium",5,4,"Transition Metal"],
+  [24,"Cr","Chromium",6,4,"Transition Metal"],
+  [25,"Mn","Manganese",7,4,"Transition Metal"],
+  [26,"Fe","Iron",8,4,"Transition Metal"],
+  [27,"Co","Cobalt",9,4,"Transition Metal"],
+  [28,"Ni","Nickel",10,4,"Transition Metal"],
+  [29,"Cu","Copper",11,4,"Transition Metal"],
+  [30,"Zn","Zinc",12,4,"Transition Metal"],
+  [31,"Ga","Gallium",13,4,"Post-transition Metal"],
+  [32,"Ge","Germanium",14,4,"Metalloid"],
+  [33,"As","Arsenic",15,4,"Metalloid"],
+  [34,"Se","Selenium",16,4,"Nonmetal"],
+  [35,"Br","Bromine",17,4,"Halogen"],
+  [36,"Kr","Krypton",18,4,"Noble Gas"],
+  [37,"Rb","Rubidium",1,5,"Alkali Metal"],
+  [38,"Sr","Strontium",2,5,"Alkaline Earth Metal"],
+  [39,"Y","Yttrium",3,5,"Transition Metal"],
+  [40,"Zr","Zirconium",4,5,"Transition Metal"],
+  [41,"Nb","Niobium",5,5,"Transition Metal"],
+  [42,"Mo","Molybdenum",6,5,"Transition Metal"],
+  [43,"Tc","Technetium",7,5,"Transition Metal"],
+  [44,"Ru","Ruthenium",8,5,"Transition Metal"],
+  [45,"Rh","Rhodium",9,5,"Transition Metal"],
+  [46,"Pd","Palladium",10,5,"Transition Metal"],
+  [47,"Ag","Silver",11,5,"Transition Metal"],
+  [48,"Cd","Cadmium",12,5,"Transition Metal"],
+  [49,"In","Indium",13,5,"Post-transition Metal"],
+  [50,"Sn","Tin",14,5,"Post-transition Metal"],
+  [51,"Sb","Antimony",15,5,"Metalloid"],
+  [52,"Te","Tellurium",16,5,"Metalloid"],
+  [53,"I","Iodine",17,5,"Halogen"],
+  [54,"Xe","Xenon",18,5,"Noble Gas"],
+  [55,"Cs","Caesium",1,6,"Alkali Metal"],
+  [56,"Ba","Barium",2,6,"Alkaline Earth Metal"],
+  [57,"La","Lanthanum","3*",6,"Lanthanide"],
+  [58,"Ce","Cerium","f-block",6,"Lanthanide"],
+  [59,"Pr","Praseodymium","f-block",6,"Lanthanide"],
+  [60,"Nd","Neodymium","f-block",6,"Lanthanide"],
+  [61,"Pm","Promethium","f-block",6,"Lanthanide"],
+  [62,"Sm","Samarium","f-block",6,"Lanthanide"],
+  [63,"Eu","Europium","f-block",6,"Lanthanide"],
+  [64,"Gd","Gadolinium","f-block",6,"Lanthanide"],
+  [65,"Tb","Terbium","f-block",6,"Lanthanide"],
+  [66,"Dy","Dysprosium","f-block",6,"Lanthanide"],
+  [67,"Ho","Holmium","f-block",6,"Lanthanide"],
+  [68,"Er","Erbium","f-block",6,"Lanthanide"],
+  [69,"Tm","Thulium","f-block",6,"Lanthanide"],
+  [70,"Yb","Ytterbium","f-block",6,"Lanthanide"],
+  [71,"Lu","Lutetium","3*",6,"Lanthanide"],
+  [72,"Hf","Hafnium",4,6,"Transition Metal"],
+  [73,"Ta","Tantalum",5,6,"Transition Metal"],
+  [74,"W","Tungsten",6,6,"Transition Metal"],
+  [75,"Re","Rhenium",7,6,"Transition Metal"],
+  [76,"Os","Osmium",8,6,"Transition Metal"],
+  [77,"Ir","Iridium",9,6,"Transition Metal"],
+  [78,"Pt","Platinum",10,6,"Transition Metal"],
+  [79,"Au","Gold",11,6,"Transition Metal"],
+  [80,"Hg","Mercury",12,6,"Transition Metal"],
+  [81,"Tl","Thallium",13,6,"Post-transition Metal"],
+  [82,"Pb","Lead",14,6,"Post-transition Metal"],
+  [83,"Bi","Bismuth",15,6,"Post-transition Metal"],
+  [84,"Po","Polonium",16,6,"Post-transition Metal"],
+  [85,"At","Astatine",17,6,"Halogen"],
+  [86,"Rn","Radon",18,6,"Noble Gas"],
+  [87,"Fr","Francium",1,7,"Alkali Metal"],
+  [88,"Ra","Radium",2,7,"Alkaline Earth Metal"],
+  [89,"Ac","Actinium","3**",7,"Actinide"],
+  [90,"Th","Thorium","f-block",7,"Actinide"],
+  [91,"Pa","Protactinium","f-block",7,"Actinide"],
+  [92,"U","Uranium","f-block",7,"Actinide"],
+  [93,"Np","Neptunium","f-block",7,"Actinide"],
+  [94,"Pu","Plutonium","f-block",7,"Actinide"],
+  [95,"Am","Americium","f-block",7,"Actinide"],
+  [96,"Cm","Curium","f-block",7,"Actinide"],
+  [97,"Bk","Berkelium","f-block",7,"Actinide"],
+  [98,"Cf","Californium","f-block",7,"Actinide"],
+  [99,"Es","Einsteinium","f-block",7,"Actinide"],
+  [100,"Fm","Fermium","f-block",7,"Actinide"],
+];
+
+function renderTable(data) {
+  const tbody = document.getElementById('ptBody');
+  tbody.innerHTML = '';
+  data.forEach(([num, sym, name, grp, per, cls]) => {
+    const clsKey = cls.replace(/ /g,'_');
+    tbody.innerHTML += `
+      <tr data-name="${name.toLowerCase()}" data-sym="${sym.toLowerCase()}" data-cls="${cls.toLowerCase()}">
+        <td class="num">${num}</td>
+        <td class="sym">${sym}</td>
+        <td>${name}</td>
+        <td style="font-family:'IBM Plex Mono',monospace;color:var(--muted)">${grp}</td>
+        <td style="font-family:'IBM Plex Mono',monospace;color:var(--muted);text-align:center">${per}</td>
+        <td><span class="class-pill ${cls}">${cls}</span></td>
+      </tr>`;
+  });
+}
+renderTable(elements);
+
+function filterTable() {
+  const q = document.getElementById('ptSearch').value.toLowerCase();
+  document.querySelectorAll('#ptBody tr').forEach(row => {
+    const match = row.dataset.name.includes(q) || row.dataset.sym.includes(q) || row.dataset.cls.includes(q);
+    row.classList.toggle('hidden', !match);
+  });
+}
+
+function filterByClass(cls) {
+  const q = cls.toLowerCase();
+  document.querySelectorAll('#ptBody tr').forEach(row => {
+    row.classList.toggle('hidden', q !== '' && !row.dataset.cls.includes(q));
+  });
+}
+
+function showTab(id) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
